@@ -1,0 +1,39 @@
+@import '../../../styles/variables.less';
+
+.unlock-metamask-popover {
+    position: fixed;
+    z-index: 1000;
+    top: 36px;
+    right: 67px;
+
+    display: flex;
+    align-items: center;
+
+    width: 315px;
+    height: 51px;
+
+    border-radius: 6px;
+    background-image: linear-gradient(90deg, #125F6D 0%, #177E8F 30%, #177E8F 70%, #16728B 100%);
+
+    .firefox {
+        position: relative;
+        top: -16px;
+
+        width: 60px;
+        height: 60px;
+        margin: 0 20px;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+
+        letter-spacing: .3px;
+
+        color: #FFFFFF;
+
+        font-family: @f-cera-pro-400;
+        font-size: 15px;
+        line-height: 19px;
+    }
+}

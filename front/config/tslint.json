@@ -1,0 +1,127 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react"
+  ],
+  "rules": {
+    "use-isnan": true,
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "arrow-return-shorthand": false,
+    "space-before-function-paren": [
+      true,
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "no-bitwise": false,
+    "ban-types": [
+      true,
+      [
+        "Object",
+        "Use 'object' instead."
+      ],
+      [
+        "Boolean",
+        "Use 'boolean' instead."
+      ],
+      [
+        "Number",
+        "Use 'number' instead."
+      ],
+      [
+        "String",
+        "Use 'string' instead."
+      ]
+    ],
+    "object-literal-key-quotes": [
+      false
+    ],
+    "no-string-literal": false,
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "no-shadowed-variable": false,
+    "prefer-const": false,
+    "comment-format": [
+      false
+    ],
+    "no-namespace": false,
+    "array-type": [
+      true,
+      "array"
+    ],
+    "max-line-length": [
+      true,
+      180
+    ],
+    "new-parens": true,
+    "no-arg": true,
+    "no-conditional-assignment": false,
+    "no-consecutive-blank-lines": [
+      true,
+      2
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
+    "no-var-requires": false,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
+    "unified-signatures": false,
+    "prefer-for-of": false,
+    "curly": false,
+    "max-classes-per-file": [
+      false
+    ],
+    "object-literal-sort-keys": false,
+    "no-empty-interface": false,
+    "ordered-imports": [
+      false
+    ],
+    "only-arrow-functions": [
+      false
+    ],
+    "no-console": [
+      false
+    ],
+    "callable-types": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "private-static-field",
+          "protected-static-field",
+          "public-static-field",
+          "private-static-method",
+          "protected-static-method",
+          "public-static-method",
+          "private-instance-field",
+          "protected-instance-field",
+          "public-instance-field",
+          "constructor",
+          "private-instance-method",
+          "protected-instance-method",
+          "public-instance-method"
+        ]
+      }
+    ]
+  },
+  "jsRules": {
+    "max-line-length": [
+      true,
+      180
+    ]
+  }
+}
