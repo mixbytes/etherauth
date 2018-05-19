@@ -62,4 +62,10 @@ contract EtherAuth {
 	//	}
 	//	return string(bytesString);
 	//}
+
+	function signerAddress(bytes32 data, uint8 v, bytes32 r, bytes32 s) pure public returns (address) {
+		bytes memory prefix = "\x19Ethereum Signed Message:\n32";
+		bytes32 prefixed = keccak256(prefix, data);
+		return ecrecover(prefixed, v, r, s);
+	}
 }
