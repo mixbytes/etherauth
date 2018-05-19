@@ -1,15 +1,12 @@
 const initState = {
   app: '',
-  screen: ''
+  screen: 'register-screen'
 };
 
 const app = (state = initState, action) => {
-  const nextState = { ...state };
-
   switch (action.type) {
-    case 'SET_USER_PROFILE':
-      nextState.profile = action.profile;
-      return nextState;
+    case 'CHANGE_SCREEN':
+      return { ...state, screen: action.screen };
 
     default:
       return state;
