@@ -1,0 +1,115 @@
+.gradient-animation(@lg1, @lg2, @transTimeStart, @transTimeEnd) {
+    position: relative;
+    z-index: 100;
+
+    background-image: linear-gradient(@lg1);
+    background-size: 100%;
+    &:before {
+        position: absolute;
+        z-index: -100;
+        top: 0;
+        left: 0;
+
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        content: '';
+        transition: opacity @transTimeEnd;
+
+        opacity: 0;
+        border-radius: 4px;
+        background-image: linear-gradient(@lg2);
+    }
+    &:hover, &:focus {
+        &:before {
+            transition: opacity @transTimeStart;
+
+            opacity: 1;
+        }
+    }
+}
+
+.transitions(@transProp, @transDur) {
+    transition-duration: @transDur;
+    transition-property: @transProp;
+}
+
+
+// @mixin css3-prefix($property, $value) {
+//     -webkit-#{$property}: #{$value};
+//     -khtml-#{$property}: #{$value};
+//     -moz-#{$property}: #{$value};
+//     -ms-#{$property}: #{$value};
+//     -o-#{$property}: #{$value};
+//     #{$property}: #{$value};
+// }
+
+// @mixin unselectable() {
+//     @include css3-prefix(user-select, none);
+// }
+
+// @mixin box-shadow($top: 0, $left: 0, $blur: 5px, $color: black, $inset: false) {
+//     @if $inset {
+//         @include css3-prefix(box-shadow, (inset $top $left $blur $color));
+//     } @else {
+//         @include css3-prefix(box-shadow, ($top $left $blur $color));
+//     }
+// }
+
+// @mixin border-radius($radius: 5px) {
+//     @include css3-prefix('border-radius', $radius);
+// }
+
+// @mixin background-gradient($startColor: #3C3C3C, $endColor: #999999) {
+//     background-color: $startColor;
+//     background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+//     background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+//     background-image: -moz-linear-gradient(top, $startColor, $endColor);
+//     background-image: -ms-linear-gradient(top, $startColor, $endColor);
+//     background-image: -o-linear-gradient(top, $startColor, $endColor);
+//     background-image: linear-gradient(top, $startColor, $endColor);
+//     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+// }
+
+// @mixin background-horizontal($startColor: #3C3C3C, $endColor: #999999) {
+//     background-color: $startColor;
+//     background-image: -webkit-gradient(linear, left top, right top, from($startColor), to($endColor));
+//     background-image: -webkit-linear-gradient(left, $startColor, $endColor);
+//     background-image: -moz-linear-gradient(left, $startColor, $endColor);
+//     background-image: -ms-linear-gradient(left, $startColor, $endColor);
+//     background-image: -o-linear-gradient(left, $startColor, $endColor);
+//     background-image: linear-gradient(left, $startColor, $endColor);
+//     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}', gradientType='1');
+// }
+
+// @mixin background-radial($startColor: #FFFFFF, $startPos: 0%, $endColor: #000000, $endPos:100%) {
+//     background: -moz-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
+//     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop($startPos, $startColor), color-stop($endPos, $endColor));
+//     background: -webkit-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
+//     background: -o-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
+//     background: -ms-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
+//     background: radial-gradient(ellipse at center, $startColor $startPos, $endColor $endPos);
+// }
+
+// @mixin background-opacity($color: #000, $opacity: 0.85) {
+//     background: $color;
+//     background: rgba($color, $opacity);
+// }
+
+// @mixin vh-stretch() {
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     width: 100%;
+// }
+
+// @mixin clickable-icon() {
+//     opacity: 0.5;
+//     cursor: pointer;
+//     &:hover {
+//         opacity: 1;
+//     }
+// }
