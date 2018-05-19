@@ -11,9 +11,115 @@ chai.should();
 const EtherAuth = artifacts.require("EtherAuth");
 
 contract('EtherAuth', function(accounts) {
-	const acc = {owner: accounts[0], user: accounts[1], user2: accounts[2], anyone: accounts[9]};
+	const acc = {owner: accounts[0], user: accounts[1], user2: accounts[2], user3: accounts[3], user4: accounts[4], anyone: accounts[9]};
+	const login = "login123";
+	const login2 = "login456";
+	const zero_address = "0x0000000000000000000000000000000000000000";
+
 	beforeEach(async function () {
 		this.inst = await EtherAuth.new({from: acc.owner});
+	});
+
+
+	it('should return zero auth address for non-existing user', async function() {
+		const storedAuthKey = await this.inst.authAddress(login, {from: acc.anyone});
+		storedAuthKey.should.be.equal(zero_address);
+	});
+
+	it('should be able to create new account and get its authAddress', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		const storedAuthKey = await this.inst.authAddress(login, {from: acc.anyone});
+		storedAuthKey.should.be.equal(acc.user);
+	});
+
+	it('should fail to re-register existing account', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await expectThrow(this.inst.createAccount(login, {from: acc.user,}));
+	});
+
+	it('should initially set recoveryAddress equal to authAddress', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		const storedAuthAddress = await this.inst.authAddress(login, {from: acc.anyone});
+		const storedRecoveryAddress = await this.inst.recoveryAddress(login, {from: acc.anyone});
+		storedRecoveryAddress.should.be.equal(storedAuthAddress);
+	});
+
+	it('should allow to change recoveryAddress', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+		const storedRecoveryAddress = await this.inst.recoveryAddress(login, {from: acc.anyone});
+		storedRecoveryAddress.should.be.equal(acc.user2);
+	});
+
+	it('should not allow auth address to change recovery address', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+		await expectThrow(this.inst.setRecoveryAddress(login, acc.anyone, {from: acc.user}));
+	});
+
+	it('should allow to change auth address using auth address', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+
+		await this.inst.setAuthAddress(login, acc.user2, {from: acc.user});
+		const storedAuthAddress = await this.inst.authAddress(login, {from: acc.anyone});
+		storedAuthAddress.should.be.equal(acc.user2);
+	});
+
+	it('should allow to change auth address using recovery address', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+
+		await this.inst.setAuthAddress(login, acc.user2, {from: acc.user2});
+		const storedAuthAddress = await this.inst.authAddress(login, {from: acc.anyone});
+		storedAuthAddress.should.be.equal(acc.user2);
+	});
+
+	it('should not allow other accounts to change auth address', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+
+		await expectThrow(this.inst.setAuthAddress(login, acc.anyone, {from: acc.anyone}));
+	});
+
+	it('should allow recovery address to delete account', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+
+		await this.inst.dropAccount(login, {from: acc.user2});
+		const storedAuthAddress = await this.inst.authAddress(login, {from: acc.anyone});
+		storedAuthAddress.should.be.equal(zero_address);
+		const storedRecoveryAddress = await this.inst.recoveryAddress(login, {from: acc.anyone});
+		storedRecoveryAddress.should.be.equal(zero_address);
+	});
+
+	it('should not allow anyone to drop account', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await expectThrow(this.inst.dropAccount(login, {from: acc.anyone}));
+	});
+
+	it('should not allow auth address to drop account', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+
+		await expectThrow(this.inst.dropAccount(login, {from: acc.user}));
+	});
+
+	it('should allow create multiple accounts with different ', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+		await this.inst.createAccount(login2, {from: acc.user3,});
+		await this.inst.setRecoveryAddress(login2, acc.user4, {from: acc.user3});
+
+		const auth1 = await this.inst.authAddress(login, {from: acc.anyone});
+		auth1.should.be.equal(acc.user);
+		const recov1 = await this.inst.recoveryAddress(login, {from: acc.anyone});
+		recov1.should.be.equal(acc.user2);
+
+		const auth2 = await this.inst.authAddress(login2, {from: acc.anyone});
+		auth2.should.be.equal(acc.user3);
+		const recov2 = await this.inst.recoveryAddress(login2, {from: acc.anyone});
+		recov2.should.be.equal(acc.user4);
 	});
 
 });
