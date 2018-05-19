@@ -1,6 +1,7 @@
 'use strict';
 
 import expectThrow from '../../submodules/openzeppelin-solidity/test/helpers/expectThrow';
+import expectEvent from '../../submodules/openzeppelin-solidity/test/helpers/expectEvent';
 
 const BigNumber = web3.BigNumber;
 const chai =require('chai');
@@ -35,6 +36,20 @@ contract('EtherAuth', function(accounts) {
 	it('should fail to re-register existing account', async function() {
 		await this.inst.createAccount(login, {from: acc.user,});
 		await expectThrow(this.inst.createAccount(login, {from: acc.user,}));
+	});
+
+	it('should fail if login length > 32 bytes', async function() {
+		const notToLongLogin = "11111111112222222222333333333344";
+		const toLongLogin    = "111111111122222222223333333333444";
+		await this.inst.createAccount(notToLongLogin, {from: acc.user,});
+		await expectThrow(this.inst.createAccount(toLongLogin, {from: acc.user,}));
+	});
+
+	it('should fail if login length < 2 bytes', async function() {
+		const notToShortLogin = "111";
+		const toShortLogin    = "11";
+		await this.inst.createAccount(notToShortLogin, {from: acc.user,});
+		await expectThrow(this.inst.createAccount(toShortLogin, {from: acc.user,}));
 	});
 
 	it('should initially set recoveryAddress equal to authAddress', async function() {
@@ -122,5 +137,32 @@ contract('EtherAuth', function(accounts) {
 		recov2.should.be.equal(acc.user4);
 	});
 
+	it('should send event on create', async function() {
+		const trans = await this.inst.createAccount(login, {from: acc.user,});
+		const createEvent = await expectEvent.inTransaction(trans, "Create");
+		//console.dir(createEvent);
+		createEvent.should.have.deep.property('args', {login: login})
+	});
+
+	it('should send event on change auth address', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		const trans = await this.inst.setAuthAddress(login, acc.user2, {from: acc.user});
+		const Event = await expectEvent.inTransaction(trans, "AuthChange");
+		Event.should.have.deep.property('args', {login: login, from: acc.user, to: acc.user2})
+	});
+
+	it('should send event on change recovery address', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		const trans = await this.inst.setRecoveryAddress(login, acc.user2, {from: acc.user});
+		const Event = await expectEvent.inTransaction(trans, "RecoveryChange");
+		Event.should.have.deep.property('args', {login: login, from: acc.user, to: acc.user2})
+	});
+
+	it('should send event on address drop', async function() {
+		await this.inst.createAccount(login, {from: acc.user,});
+		const trans = await this.inst.dropAccount(login, {from: acc.user});
+		const Event = await expectEvent.inTransaction(trans, "Drop");
+		Event.should.have.deep.property('args', {login: login, by: acc.user})
+	});
 });
 
