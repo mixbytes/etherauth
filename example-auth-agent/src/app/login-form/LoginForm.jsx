@@ -52,11 +52,11 @@ export default class LoginForm extends PureComponent {
             let result;
             try {
                 result = instance['authAddress'].call(value,
-                    (error, result) => {
+                    (error, authAddress) => {
                         if (!error) {
                             // fake send 'secret' string - will be generate
                             // sign
-                            if (result === '0x0000000000000000000000000000000000000000') {
+                            if (authAddress === '0x0000000000000000000000000000000000000000') {
                                 this.setState({ error: 'User does not exists!' });
                                 return;
                             } else if (error !== '') {
@@ -64,25 +64,37 @@ export default class LoginForm extends PureComponent {
                             }
 
                             // web3.eth.sign(result, '0x' + 'moloko'.toString('hex'),
-                            const h = web3.sha3('eth');
+                            var message = 'eth';
+                            // let h = web3.sha3(message);
+                            let h = web3.sha3(
+                                "\x19Ethereum Signed Message:\n" +
+                                message
+                            );
 
-                            web3.eth.sign(result, h,
-                                (error, result) => {
+                            // let hex = h.toString();//force conversion
+                            // let str = '';
+                            // for (let i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
+                            //     str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+                            // console.log(str);
+
+                            web3.eth.sign(authAddress, h,
+                                (error, signMsg) => {
                                     if (!error) {
-                                        const sig = result.slice(2);
+                                        const sig = signMsg.slice(2);
                                         const r = `0x${sig.slice(0, 64)}`;
                                         const s = `0x${sig.slice(64, 128)}`;
                                         const v = web3.toDecimal('0x' + sig.slice(128, 130)) + 27;
-                                        console.log(instance);
-                                        instance['signerAddress'].call(h, v, r, s)
-                                            .then(resulte => {
-                                                console.log('result: ', result,
-                                                    'address: ', resulte,
-                                                    result === resulte);
-                                            })
-                                            .catch(e => {
-                                                console.log('error in eq', e);
-                                            });
+
+                                        instance['signerAddress'].call(h, v, r, s, (error, res) => {
+                                            if (!error) {
+                                                console.log('result: ', res,
+                                                    'address: ', authAddress,
+                                                    res === result);
+                                            } else {
+                                                console.log('Error in sign!');
+
+                                            }
+                                        });
                                     } else {
                                         console.log('Error in sign!');
                                     }
