@@ -1,6 +1,6 @@
 'use strict';
 
-import expectThrow from '../submodules/openzeppelin-solidity/test/helpers/expectThrow';
+import expectThrow from '../../submodules/openzeppelin-solidity/test/helpers/expectThrow';
 
 const BigNumber = web3.BigNumber;
 const chai =require('chai');
@@ -15,7 +15,6 @@ contract('EtherAuth', function(accounts) {
 	beforeEach(async function () {
 		this.inst = await EtherAuth.new({from: acc.owner});
 	});
-
 
 });
 
