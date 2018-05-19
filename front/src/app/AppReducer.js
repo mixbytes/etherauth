@@ -1,6 +1,7 @@
 const initState = {
   app: '',
-  screen: 'register-screen'
+  screen: 'main-screen'
+  // screen: 'register-screen'
 };
 
 const app = (state = initState, action) => {
