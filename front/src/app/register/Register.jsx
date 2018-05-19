@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 
 import { getNetworkId, web3 } from '../../helpers/eth';
 import { ABI, ADDRESS } from '../../constants/constants';
+import store from '../../store/store';
+import { changeScreen } from '../AppActions';
 
 import './Register.less';
 
@@ -20,6 +22,7 @@ export default class Register extends PureComponent {
             if (null == receipt)
                 window.setTimeout(() => { this.getReceipt(tx) }, 500);
             else {
+                store.dispatch(changeScreen('admin-screen'));
                 console.log('done!!!!!!!!!!!!!!!!!');
             }
         });

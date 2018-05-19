@@ -5,6 +5,8 @@ import { checkMetaMask } from '../helpers/eth';
 import Metamask from './metamask/Metamask';
 import Register from './register/Register';
 import Main from './main/Main';
+import Admin from './admin/Admin';
+import Mining from './mining/Mining';
 
 import './App.less';
 
@@ -25,6 +27,12 @@ class App extends Component {
           break;
         case 'register-screen':
           content = <Register />
+          break;
+        case 'admin-screen':
+          content = <Admin />
+          break;
+        case 'mining-screen':
+          content = <Mining />
           break;
 
         default:

@@ -1,0 +1,88 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" style="transform-origin: 50px 50px 0px;" xml:space="preserve">
+<g style="transform-origin: 50px 50px 0px;">
+<g fill="black" style="fill: rgb(223, 19, 23); transform-origin: 50px 50px 0px; transform: scale(0.6);"><g style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.6s; animation-direction: normal;" class="ld ld-bounce-px">
+<g fill="black" style="fill: rgb(0, 0, 0);">
+<style type="text/css" class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.6s; animation-direction: normal;">.st0{fill:#090000;} .st1{fill:#090000;} .st2{fill:black;} .st3{fill:black;} .st4{fill:black;} .st5{fill:black;}
+</style>
+<g class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.545455s; animation-direction: normal;">
+<path class="st1" d="M49.815,69.9l-24.55-14.5L49.815,90L74.38,55.4L49.81,69.9H49.815z M50.185,10l-24.55,40.74l24.55,14.515 l24.55-14.5L50.185,10z" fill="black" style="fill: #558892;">
+</path>
+</g>
+<metadata xmlns:d="https://loading.io/stock/" class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.490909s; animation-direction: normal;">
+<d:name class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.436364s; animation-direction: normal;">ethereum</d:name>
+<d:tags class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.381818s; animation-direction: normal;">ethereum,brand wb</d:tags>
+<d:license class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.327273s; animation-direction: normal;">cc0</d:license>
+<d:slug class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.272727s; animation-direction: normal;">vil5qg</d:slug>
+</metadata>
+</g>
+</g>
+</g>
+</g>
+<style type="text/css" class="" style="transform-origin: 50px 50px 0px; animation-duration: 0.6s; animation-delay: -0.218182s; animation-direction: normal;">
+path,ellipse,circle,rect,polygon,polyline,line { stroke-width: 0; }@keyframes ld-bounce-px {
+  0%, 90% {
+    animation-timing-function: linear;
+  }
+  10% {
+    animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6);
+  }
+  0% {
+    -webkit-transform: translate(0, 30px) scaleY(0.5);
+    transform: translate(0, 30px) scaleY(0.5);
+  }
+  10% {
+    -webkit-transform: translate(0, 5px) scaleY(1.1);
+    transform: translate(0, 5px) scaleY(1.1);
+  }
+  50% {
+    -webkit-transform: translate(0, -37px) scaleY(1.1);
+    transform: translate(0, -37px) scaleY(1.1);
+  }
+  90% {
+    -webkit-transform: translate(0, 5px) scaleY(1.1);
+    transform: translate(0, 5px) scaleY(1.1);
+  }
+  100% {
+    -webkit-transform: translate(0, 30px) scaleY(0.5);
+    transform: translate(0, 30px) scaleY(0.5);
+  }
+}
+@-webkit-keyframes ld-bounce-px {
+  0%, 90% {
+    animation-timing-function: linear;
+  }
+  10% {
+    animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6);
+  }
+  0% {
+    -webkit-transform: translate(0, 30px) scaleY(0.5);
+    transform: translate(0, 30px) scaleY(0.5);
+  }
+  10% {
+    -webkit-transform: translate(0, 5px) scaleY(1.1);
+    transform: translate(0, 5px) scaleY(1.1);
+  }
+  50% {
+    -webkit-transform: translate(0, -37px) scaleY(1.1);
+    transform: translate(0, -37px) scaleY(1.1);
+  }
+  90% {
+    -webkit-transform: translate(0, 5px) scaleY(1.1);
+    transform: translate(0, 5px) scaleY(1.1);
+  }
+  100% {
+    -webkit-transform: translate(0, 30px) scaleY(0.5);
+    transform: translate(0, 30px) scaleY(0.5);
+  }
+}
+.ld.ld-bounce-px {
+  -webkit-animation: ld-bounce-px 1s infinite;
+  animation: ld-bounce-px 1s infinite;
+}
+</style></svg>
