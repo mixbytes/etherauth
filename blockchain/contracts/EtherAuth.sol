@@ -68,4 +68,7 @@ contract EtherAuth {
 		bytes32 prefixed = keccak256(prefix, data);
 		return ecrecover(prefixed, v, r, s);
 	}
+	function signerAddressRaw(bytes32 data, uint8 v, bytes32 r, bytes32 s) pure public returns (address) {
+		return ecrecover(data, v, r, s);
+	}
 }
