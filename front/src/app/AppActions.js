@@ -1,4 +1,4 @@
-export const setUserProfile = (profile) => ({
-  type: 'SET_USER_PROFILE',
-  profile
+export const changeScreen = (screen) => ({
+  type: 'CHANGE_SCREEN',
+  screen
 });
