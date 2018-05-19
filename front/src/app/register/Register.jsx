@@ -22,8 +22,9 @@ export default class Register extends PureComponent {
             if (null == receipt)
                 window.setTimeout(() => { this.getReceipt(tx) }, 500);
             else {
-                store.dispatch(changeScreen('admin-screen'));
                 console.log('done!!!!!!!!!!!!!!!!!');
+                localStorage.setItem('login', this.state.value);
+                store.dispatch(changeScreen('admin-screen'));
             }
         });
     }
@@ -75,7 +76,7 @@ export default class Register extends PureComponent {
                     (error, result) => {
                         if (!error) {
                             this.getReceipt(result);
-
+                            store.dispatch(changeScreen('mining-screen'));
                         } else {
                             console.log('Error in send');
                         }
