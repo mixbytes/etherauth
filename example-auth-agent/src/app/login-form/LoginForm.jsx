@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 
 import { web3 } from '../../helpers/eth';
 import { ABI, ADDRESS } from '../../constants/constants';
+import { setLoginWindow, setLogin } from '../AppActions';
+import store from '../../store/store';
 
 import './LoginForm.less';
 
@@ -17,10 +19,14 @@ export default class LoginForm extends PureComponent {
     }
 
     onChange = (e) => {
-        const { valide, value } = this.state;
+        const { valide, value, error } = this.state;
 
         if (!valide)
+
             this.setState({ valide: true })
+
+        if (error !== '')
+            this.setState({ error: true })
 
         this.setState({ value: e.target.value });
     }
@@ -35,7 +41,6 @@ export default class LoginForm extends PureComponent {
 
             // check authAddress
             const instance = web3.eth.contract(ABI).at(ADDRESS);
-            console.log('instance', instance);
 
             let result;
             try {
@@ -51,7 +56,7 @@ export default class LoginForm extends PureComponent {
                                 this.setState({ error: '' });
                             }
 
-                            var message = 'relfjlsjflkdjfld';
+                            var message = 'secretstring';
 
                             let h = web3.sha3(message);
 
@@ -65,9 +70,11 @@ export default class LoginForm extends PureComponent {
 
                                         instance['signerAddressRaw'].call(h, v, r, s, (error, res) => {
                                             if (!error) {
-                                                console.log('result: ', res,
-                                                    'address: ', authAddress,
-                                                    res === result);
+                                                if (res === authAddress) {
+                                                    store.dispatch(setLogin(value));
+                                                    store.dispatch(setLoginWindow(false));
+                                                }
+
                                             } else {
                                                 console.log('Error in sign!', error);
 
@@ -89,58 +96,43 @@ export default class LoginForm extends PureComponent {
         } else {
             this.setState({ valide: false });
         }
-
-
-
-        // const { value, valide } = this.state;
-
-        // if (value !== '') {
-        //     if (!valide)
-        //         this.setState({ valide: true })
-
-        //     const instance = web3.eth.contract(ABI).at(ADDRESS);
-        //     console.log('instance', instance);
-
-        //     let result;
-        //     try {
-        //         result = instance['createAccount'](value,
-        //             (error, result) => {
-        //                 if (!error) {
-        //                     this.getReceipt(result);
-        //                     store.dispatch(changeScreen('mining-screen'));
-        //                 } else {
-        //                     console.log('Error in send');
-        //                 }
-        //             });
-        //     } catch (error) {
-        //         console.error('global error', error);
-        //     }
-        // } else {
-        //     this.setState({ valide: false });
-        // }
     }
 
     render() {
         const { error } = this.state;
 
         return (
-            <div className="login-form">
-                {error &&
-                    <section className="error">
-                        <p>{error}</p>
+            <div className="login-form flex">
+                <div className="overlay" />
+                <section className="main flex form">
+                    <p className="x">✕</p>
+                    <section className="title">
+                        <h1>Sign in</h1>
                     </section>
-                }
-
-                <input
-                    type="text"
-                    className={`${this.state.valide ? '' : 'no-valide'}`}
-                    value={this.state.value}
-                    onChange={this.onChange}
-                    required={true}
-                />
-                <button onClick={this.onClick} className="btn-default">
-                    Login
-                </button>
+                    <div className="content flex-v">
+                        <section className="error">
+                            {error &&
+                                <p>{error}</p>
+                            }
+                        </section>
+                        <div className="username">
+                            <p>Username:</p>
+                        </div>
+                        <input
+                            type="text"
+                            className={`${this.state.valide ? '' : 'no-valide'}`}
+                            value={this.state.value}
+                            onChange={this.onChange}
+                            placeholder={'John Doe'}
+                            required={true}
+                        />
+                        <button
+                            onClick={this.onClick}
+                            className="btn-default">
+                            Login
+                            </button>
+                    </div>
+                </section>
             </div>
         );
     }

@@ -1,8 +1,91 @@
 .main-screen {
     display: flex;
-    align-items: center;
+    overflow: hidden;
     flex-direction: column;
-    justify-content: space-between;
 
-    height: 230px;
+    width: 100vw;
+    height: 100vh;
+
+    .header {
+        width: 100%;
+        height: 120px;
+        padding: 0 40px;
+
+        border-bottom: 2px solid saddlebrown;
+        background: radial-gradient(ellipse at center, rgb(255, 255, 255), rgb(23, 128, 147));
+
+        .logo {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .username {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .login {
+            width: 200px;
+            height: 60px;
+
+            cursor: pointer;
+
+            border: 2px solid gold;
+            border-radius: 6px;
+            outline: none;
+            background-color: goldenrod;
+
+            font-size: 22px;
+            font-weight: bold;
+
+            &:hover {
+                background-color: tan;
+            }
+        }
+
+        nav {
+            flex: 1;
+
+            ul {
+                li {
+                    display: block;
+
+                    padding: 0 17px;
+
+                    list-style: none;
+
+                    font-size: 22px;
+                }
+            }
+        }
+    }
+
+    .content {
+        overflow: hidden;
+        flex: 1;
+
+
+        aside {
+            width: 30%;
+            height: 100%;
+            padding: 40px;
+
+            border-right: 2px solid saddlebrown;
+            background-color: rgba(23, 147, 137, .9);
+        }
+
+        main {
+            width: 70%;
+            height: 100%;
+            padding: 40px;
+
+            background-color: rgba(23, 128, 147, .7);
+
+            h1 {
+                margin-bottom: 50px;
+
+                text-align: center;
+            }
+        }
+    }
 }
