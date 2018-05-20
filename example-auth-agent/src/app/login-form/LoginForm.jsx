@@ -16,18 +16,6 @@ export default class LoginForm extends PureComponent {
         };
     }
 
-    // getReceipt(tx) {
-    //     web3.eth.getTransactionReceipt(tx, (err, receipt) => {
-    //         if (null == receipt)
-    //             window.setTimeout(() => { this.getReceipt(tx) }, 500);
-    //         else {
-    //             console.log('done!!!!!!!!!!!!!!!!!');
-    //             localStorage.setItem('login', this.state.value);
-    //             store.dispatch(changeScreen('admin-screen'));
-    //         }
-    //     });
-    // }
-
     onChange = (e) => {
         const { valide, value } = this.state;
 
@@ -63,19 +51,9 @@ export default class LoginForm extends PureComponent {
                                 this.setState({ error: '' });
                             }
 
-                            // web3.eth.sign(result, '0x' + 'moloko'.toString('hex'),
-                            var message = 'eth';
-                            // let h = web3.sha3(message);
-                            let h = web3.sha3(
-                                "\x19Ethereum Signed Message:\n" +
-                                message
-                            );
+                            var message = 'relfjlsjflkdjfld';
 
-                            // let hex = h.toString();//force conversion
-                            // let str = '';
-                            // for (let i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
-                            //     str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-                            // console.log(str);
+                            let h = web3.sha3(message);
 
                             web3.eth.sign(authAddress, h,
                                 (error, signMsg) => {
@@ -83,15 +61,15 @@ export default class LoginForm extends PureComponent {
                                         const sig = signMsg.slice(2);
                                         const r = `0x${sig.slice(0, 64)}`;
                                         const s = `0x${sig.slice(64, 128)}`;
-                                        const v = web3.toDecimal('0x' + sig.slice(128, 130)) + 27;
+                                        const v = `0x${sig.slice(128, 130)}`;
 
-                                        instance['signerAddress'].call(h, v, r, s, (error, res) => {
+                                        instance['signerAddressRaw'].call(h, v, r, s, (error, res) => {
                                             if (!error) {
                                                 console.log('result: ', res,
                                                     'address: ', authAddress,
                                                     res === result);
                                             } else {
-                                                console.log('Error in sign!');
+                                                console.log('Error in sign!', error);
 
                                             }
                                         });
