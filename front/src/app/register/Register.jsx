@@ -102,9 +102,12 @@ export default class Register extends PureComponent {
     render() {
         return (
             <div className="register form flex-v">
+                <div className="username">
+                    <p>Username:</p>
+                </div>
                 <input
                     type="text"
-                    className={`${this.state.valide ? '' : 'no-valide'}`}
+                    className={`form-input ${this.state.valide ? '' : 'no-valide'}`}
                     value={this.state.value}
                     onChange={this.onChange}
                     required={true}

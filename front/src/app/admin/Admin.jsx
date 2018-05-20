@@ -97,7 +97,6 @@ export default class Admin extends PureComponent {
         const { login, value, valide } = this.state;
 
         if (value !== '') {
-            // if (web3.isAddress(value)) {
             if (!valide)
                 this.setState({ valide: true })
 
@@ -130,22 +129,21 @@ export default class Admin extends PureComponent {
                 {error &&
                     <p>{error}</p>
                 }
-                <section>
-                    <h1>Warning: you key is same</h1>
-                </section>
-                <p>Login: {login}</p>
-                <p>Auth address: <span>{authAddress}</span></p>
-                {/* <input
-                    type="text"
-                    className={`${this.state.valide ? '' : 'no-valide'}`}
-                    value={this.state.value}
-                    onChange={this.onChange}
-                    required={true}
-                /> */}
-                <p>Recovery address: <span>{recoveryAddress}</span></p>
+                {authAddress === recoveryAddress
+                    ? <section className="warning">
+                        <h1>Warning: Auth key = Recorery key</h1>
+                        <p>Change your Recovery key</p>
+                    </section>
+                    : null
+                }
+                <div className="description">
+                    <p>Login: {login}</p>
+                    <p>Auth address: <span>{authAddress}</span></p>
+                    <p>Recovery address: <span>{recoveryAddress}</span></p>
+                </div>
                 <input
                     type="text"
-                    className={`${this.state.valide ? '' : 'no-valide'}`}
+                    className={`form-input ${this.state.valide ? '' : 'no-valide'}`}
                     value={this.state.value}
                     onChange={this.onChange}
                     required={true}
